@@ -3,7 +3,8 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  apiLink : "https://s3-ap-southeast-1.amazonaws.com/he-public-data/books8f8fe52.json"
 };
 
 /*

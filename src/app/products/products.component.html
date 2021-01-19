@@ -1,0 +1,65 @@
+<div class="container-fluid mt-4">
+    <div class="row">
+        <div class="col-md-6">
+            <form class="mt-2 mb-4">
+                <div class="form-row align-items-center">
+                  <div class="col-sm-3 my-1">
+                    <input type="text" class="form-control" [(ngModel)]="someQuery" name="someQuery" id="someQuery" placeholder="Search Here">
+                  </div>
+                  <div class="col-auto my-1">
+                    <button class="btn btn-primary" (click)="someFunction()">Search</button>
+                  </div>
+                </div>
+              </form>
+              <div class="form-group">
+                <select name="sortingList" id="sortingList" class="form-control col-md-3" [(ngModel)]="ratingValue" (change)="sortFunction()">
+                    <option value=" ">None</option>
+                    <option value="lowtohigh">Low to High Rating</option>
+                    <option value="hightolow">High to Low Rating</option>
+                </select>
+              </div>
+        </div>
+        <div class="col-md-6">
+            <button type="button" class="btn btn-info">
+                <i class="fas fa-shopping-cart fa-2x"></i>  <span class="badge badge-light"> {{ cartArray.length }} </span>
+              </button>
+        </div>
+    </div>
+            <div class="row">
+                <div class="col-md-3" *ngFor="let x of requiredData | searchFunction : query | sortFunction : querySort " >
+                        <div class="card mb-3">
+                            <div class="card-body">
+                              <h5 class="card-title"> {{ x.title }} </h5>
+                              <h6 class="card-subtitle mb-2 text-muted">- {{ x.authors }}</h6>
+                              <table class="table-borderless" style="width: 100%;">
+                                    <tr>
+                                        <th class="text-info"> ISBN  </th>
+                                        <td> {{ x.isbn }} </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-info"> Ratings  </th>
+                                        <td> {{ x.ratings_count }} </td> 
+                                    </tr>
+                                    <tr>
+                                        <th class="text-info"> Language  </th>
+                                        <td> {{ x.language_code }} </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-info"> Avg Rating  </th>
+                                        <td> 
+                                            <div class="star" [ngClass]=" x.average_rating >= 1 ? 'gold' : x.average_rating > 0 ? 'gold-gray' : 'gray' ">&#x2605;</div>
+                                            <div class="star" [ngClass]=" x.average_rating >= 2 ? 'gold' : x.average_rating > 1 ? 'gold-gray' : 'gray' ">&#x2605;</div>
+                                            <div class="star" [ngClass]=" x.average_rating >= 3 ? 'gold' : x.average_rating > 2 ? 'gold-gray' : 'gray' ">&#x2605;</div>
+                                            <div class="star" [ngClass]=" x.average_rating >= 4 ? 'gold' : x.average_rating > 3 ? 'gold-gray' : 'gray' ">&#x2605;</div>
+                                            <div class="star" [ngClass]=" x.average_rating == 5 ? 'gold' : x.average_rating > 4 ? 'gold-gray' : 'gray' ">&#x2605;</div>
+                                    </tr>
+                              </table>
+                              <h5 class="card-text text-right text-primary">  {{ x.price | currency:'INR' }}  </h5>
+                              <button class="btn btn-warning btn-sm" (click)="addFunction(x.bookID)">Add to cart</button>
+                            </div>
+                        </div>
+                </div>
+            </div>
+</div>
+
+
